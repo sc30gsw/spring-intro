@@ -9,7 +9,8 @@
 	<form th:action = "@{/echo}" method="post" th:object="${form}">
 		<div>テキストを入力してください ：</div>
 		<div>
-			<input type="text" th:field="*{text}">
+			<input type="text" th:field="*{text}" th:errorclass="is-invalid">
+			<div class="invalid-feedback" th:errors="*{text}"></div>
 		</div>
 		<div>
 			<input type="submit">
