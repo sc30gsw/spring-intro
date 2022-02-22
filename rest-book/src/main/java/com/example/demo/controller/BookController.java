@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.domain.entity.Book;
 import com.example.demo.domain.entity.BookResource;
+import com.example.demo.domain.error.BookResourceNotFoundException;
 import com.example.demo.domain.service.BookService;
 
 @RestController
@@ -32,6 +33,10 @@ public class BookController {
 	public BookResource getBook(@PathVariable String bookId) {
 		
 		Book book = bookService.find(bookId);
+		
+		if(book == null) {
+			throw new BookResourceNotFoundException(bookId);
+		}
 		
 		BookResource resource = new BookResource();
 		resource.setBookId(book.getBookId());
