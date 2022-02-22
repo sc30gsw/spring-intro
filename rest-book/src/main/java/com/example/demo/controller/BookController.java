@@ -1,9 +1,15 @@
 package com.example.demo.controller;
 
 
+import java.net.URI;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -29,5 +35,19 @@ public class BookController {
 		resource.setPublishedDate(book.getPublishedDate());
 		
 		return resource;
+	}
+	
+	@PostMapping
+	public ResponseEntity<Void> createBook(@Validated @RequestBody BookResource newResource) {
+		
+		Book newBook = new Book();
+		newBook.setName(newResource.getName());
+		newBook.setPublishedDate(newResource.getPublishedDate());
+		
+		Book createdBook = bookService.create(newBook);
+		
+		String resourceUri = "http://localhost:8080/books/" + createdBook.getBookId();
+		
+		return ResponseEntity.created(URI.create(resourceUri)).build();
 	}
 }
