@@ -40,5 +40,9 @@ public class BookService {
 	public Book update(Book book) {
 		return bookRepository.put(book.getBookId(), book);
 	}
+	
+	public Book delete(String bookId) {
+		return bookRepository.remove(bookId);
+	}
 
 }

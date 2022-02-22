@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -64,5 +65,11 @@ public class BookController {
 		book.setPublishedDate(resource.getPublishedDate());
 		
 		bookService.update(book);
+	}
+	
+	@DeleteMapping("/{bookId}")
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	public void delte(@PathVariable String bookId) {
+		bookService.delete(bookId);
 	}
 }
