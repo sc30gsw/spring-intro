@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import com.example.demo.domain.entity.Book;
@@ -64,11 +65,16 @@ public class BookController {
 		Book createdBook = bookService.create(newBook);
 
 		// String resourceUri = "http://localhost:8080/books/" + createdBook.getBookId();
-		URI resourceUri = uriBuilder
-				.path("books/{bookId}")
-				.buildAndExpand(createdBook.getBookId())
-				.encode()
-				.toUri();
+//		URI resourceUri = uriBuilder
+//				.path("books/{bookId}")
+//				.buildAndExpand(createdBook.getBookId())
+//				.encode()
+//				.toUri();
+		
+		URI resourceUri = MvcUriComponentsBuilder.relativeTo(uriBuilder)
+				.withMethodCall(
+						getBook(createdBook.getBookId())
+				).build().encode().toUri();
 
 		//return ResponseEntity.created(URI.create(resourceUri)).build();
 		return ResponseEntity.created(resourceUri).build();
