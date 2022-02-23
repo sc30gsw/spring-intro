@@ -9,8 +9,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
+
+import com.example.demo.domain.error.BookNotFoundException;
 
 @ControllerAdvice
 public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
@@ -39,6 +42,11 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
 
 		ApiError apiError = createApiError(e);
 		return super.handleExceptionInternal(e, apiError, headers, status, request);
+	}
+	
+	@ExceptionHandler
+	public ResponseEntity<Object> handleBookNotFoundException(BookNotFoundException e, WebRequest request) {
+		return handleExceptionInternal(e, null, null, HttpStatus.NOT_FOUND, request);
 	}
 
 }
