@@ -48,5 +48,18 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
 	public ResponseEntity<Object> handleBookNotFoundException(BookNotFoundException e, WebRequest request) {
 		return handleExceptionInternal(e, null, null, HttpStatus.NOT_FOUND, request);
 	}
+	
+	@ExceptionHandler
+	public ResponseEntity<Object> handleSystemException(Exception e, WebRequest request) {
+		ApiError apiError = createApiError(e, "System error is occurred");
+		return super.handleExceptionInternal(e, apiError, null, HttpStatus.INTERNAL_SERVER_ERROR, request);
+	}
+	
+	private ApiError createApiError(Exception e, String defaultMessage) {
+		ApiError apiError = new ApiError();
+		apiError.setMessage(resolveMessage(e, defaultMessage));
+		apiError.setDocumentationUrl("http://example.com/api/errors");
+		return apiError;
+	}
 
 }
