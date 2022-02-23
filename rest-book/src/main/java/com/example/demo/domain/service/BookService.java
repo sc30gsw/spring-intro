@@ -1,6 +1,7 @@
 package com.example.demo.domain.service;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.demo.domain.entity.Book;
 import com.example.demo.domain.entity.BookCriteria;
+import com.example.demo.domain.entity.BookResource.BookPublisher;
 
 @Service
 public class BookService {
@@ -22,9 +24,17 @@ public class BookService {
 	@PostConstruct
 	public void loadDummyData() {
 		Book book = new Book();
+		BookPublisher publisher = new BookPublisher();
+		List<String> authors = new ArrayList<>();
+		authors.add("著者A");
+		authors.add("著者B");
 		book.setBookId("00000000-0000-0000-0000-000000000000");
 		book.setName("書籍名");
+		book.setAuthors(authors);
 		book.setPublishedDate(LocalDate.of(2010, 4, 20));
+		publisher.setName("翔泳社");
+		publisher.setTel("03-xxxx-xxxx");
+		book.setPublisher(publisher);
 		bookRepository.put(book.getBookId(), book);
 	}
 

@@ -48,6 +48,8 @@ public class BookController {
 		BookResource resource = new BookResource();
 		resource.setBookId(book.getBookId());
 		resource.setName(book.getName());
+		resource.setAuthors(book.getAuthors());
+		resource.setPublisher(book.getPublisher());
 		resource.setPublishedDate(book.getPublishedDate());
 
 		return resource;
