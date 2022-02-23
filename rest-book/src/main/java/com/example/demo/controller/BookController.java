@@ -2,6 +2,8 @@ package com.example.demo.controller;
 
 
 import java.net.URI;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,7 +20,9 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.domain.entity.Book;
+import com.example.demo.domain.entity.BookCriteria;
 import com.example.demo.domain.entity.BookResource;
+import com.example.demo.domain.entity.BookResourceQuery;
 import com.example.demo.domain.error.BookResourceNotFoundException;
 import com.example.demo.domain.service.BookService;
 
@@ -76,5 +80,23 @@ public class BookController {
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void delte(@PathVariable String bookId) {
 		bookService.delete(bookId);
+	}
+	
+	@GetMapping
+	public List<BookResource> searchBooks(@Validated BookResourceQuery query) {
+		
+		BookCriteria criteria = new BookCriteria();
+		criteria.setName(query.getName());
+		criteria.setPublishedDate(query.getPublishedDate());
+		
+		List<Book> books = bookService.findAllByCriteria(criteria);
+		
+		return books.stream().map(book -> {
+			BookResource resource = new BookResource();
+			resource.setBookId(book.getBookId());
+			resource.setName(book.getName());
+			resource.setPublishedDate(book.getPublishedDate());
+			return resource;
+		}).collect(Collectors.toList());
 	}
 }
