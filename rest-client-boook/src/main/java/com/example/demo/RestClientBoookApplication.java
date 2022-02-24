@@ -2,15 +2,14 @@ package com.example.demo;
 
 import java.net.URI;
 import java.time.LocalDate;
-import java.util.UUID;
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;
-import org.springframework.http.MediaType;
-import org.springframework.http.RequestEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
@@ -39,16 +38,15 @@ public class RestClientBoookApplication {
 			resource.setPublishedDate(LocalDate.of(2016, 4, 1));
 			URI createdResourceUri = restTemplate.postForLocation("http://localhost:8080/books", resource);
 			
-			RequestEntity<BookResource> requestEntity = (RequestEntity<BookResource>) RequestEntity
-					.post(URI.create("http://localhost:8080/books"))
-					.contentType(MediaType.APPLICATION_JSON)
-					.header("X-Track-Id", UUID.randomUUID().toString())
-					.body(resource);
+			ResponseEntity<Void> responseEntity = restTemplate.postForEntity("http://localhost:8080/books", resource, Void.class);
 			
-			ResponseEntity<Void> responseEntity = restTemplate.exchange(requestEntity, Void.class);
+			HttpStatus httpStatus = responseEntity.getStatusCode();
+			HttpHeaders responseHeaders = responseEntity.getHeaders();
+			
 			log.info(createdResourceUri.toString());
-			log.info(requestEntity.toString());
 			log.info(responseEntity.toString());
+			log.info(httpStatus.toString());
+			log.info(responseHeaders.toString());
 			log.info(resource.getName());
 		};
 	}
