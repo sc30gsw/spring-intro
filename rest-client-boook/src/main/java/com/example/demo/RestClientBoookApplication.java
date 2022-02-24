@@ -29,6 +29,7 @@ public class RestClientBoookApplication {
 		return args -> {
 			BookResource resource = restTemplate.getForObject("http://localhost:8080/books/00000000-0000-0000-0000-000000000000", BookResource.class);
 			log.info(resource.toString());
+			log.info(resource.getName());
 		};
 	}
 
