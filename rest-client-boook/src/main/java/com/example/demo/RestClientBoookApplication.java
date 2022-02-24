@@ -1,5 +1,8 @@
 package com.example.demo;
 
+import java.net.URI;
+import java.time.LocalDate;
+
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -27,8 +30,11 @@ public class RestClientBoookApplication {
 	@Bean
 	public CommandLineRunner run(RestTemplate restTemplate) throws Exception {
 		return args -> {
-			BookResource resource = restTemplate.getForObject("http://localhost:8080/books/00000000-0000-0000-0000-000000000000", BookResource.class);
-			log.info(resource.toString());
+			BookResource resource = new BookResource();
+			resource.setName("Spring徹底入門");
+			resource.setPublishedDate(LocalDate.of(2016, 4, 1));
+			URI createdResourceUri = restTemplate.postForLocation("http://localhost:8080/books", resource);
+			log.info(createdResourceUri.toString());
 			log.info(resource.getName());
 		};
 	}
