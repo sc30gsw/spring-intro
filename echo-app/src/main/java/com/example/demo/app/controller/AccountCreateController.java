@@ -22,13 +22,19 @@ public class AccountCreateController {
 	public AccountCreateForm setUpAccountCreateForm() {
 		return new AccountCreateForm();
 	}
+	
+	@GetMapping("/create")
+	public String getCreate() {
+		return "accounts/create";
+		
+	}
 
 	@PostMapping("/create")
 	public String create(@Validated AccountCreateForm form, BindingResult result, @ModelAttribute("password") String password,
 			RedirectAttributes rediretAttributes) {
 		
 		if (result.hasErrors()) {
-			return "redirect:/accounts";
+			return "redirect:/accounts/create";
 		}
 		
 		return "redirect:/accounts/create?complete";
@@ -38,7 +44,7 @@ public class AccountCreateController {
 	@GetMapping(path = "/create", params = "complete")
 	public String createComplete(SessionStatus sessionStatus) {
 		sessionStatus.setComplete();
-		return "account/createComplete";
+		return "accounts/createComplete";
 	}
 
 }
