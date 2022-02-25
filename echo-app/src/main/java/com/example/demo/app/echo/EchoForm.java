@@ -1,4 +1,4 @@
-package com.example.demo.app;
+package com.example.demo.app.echo;
 
 import java.io.Serializable;
 
