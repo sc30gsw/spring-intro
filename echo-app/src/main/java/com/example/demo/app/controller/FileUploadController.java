@@ -1,8 +1,10 @@
 package com.example.demo.app.controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -38,6 +40,11 @@ public class FileUploadController {
 		}
 		
 		return "redirect:/file/upload?complete";
+	}
+	
+	@Async //別スレッドで実行される
+	public void save(InputStream in, File file) {
+		// ・・・
 	}
 
 }
