@@ -12,4 +12,5 @@ public class AppConfig {
 	public MultipartResolver multipartResolver() {
 		return new StandardServletMultipartResolver();
 	}
+	
 }
