@@ -1,21 +1,18 @@
 package com.example.demo.domain.service;
 
 import static org.hamcrest.CoreMatchers.*;
-import static org.junit.Assert.*;
+import static org.hamcrest.MatcherAssert.*;
 import static org.mockito.Mockito.*;
 
 import java.util.Locale;
 
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.MessageSource;
 
 @SpringBootTest
-@RunWith(MockitoJUnitRunner.class)
 class MessageServiceTest {
 	
 	@InjectMocks
