@@ -26,6 +26,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				.loginPage("/login")
 				.loginProcessingUrl("/authenticate")
 				.usernameParameter("uid")
-				.passwordParameter("pwd");
+				.passwordParameter("pwd")
+				.defaultSuccessUrl("/menu");
 	}
 }
