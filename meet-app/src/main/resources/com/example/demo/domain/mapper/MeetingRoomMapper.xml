@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- Mapperとxmlのマッピング -->
+<mapper namespace="com.example.demo.domain.mapper.MeetingRoomMapper">
+
+	<!-- マッピング定義(MeetingRoom) -->
+	<resultMap id="BaseResultMap" type="com.example.demo.domain.entity.MeetingRoom">
+		<id property="roomId" column="room_id"></id>
+		<result property="roomName" column="room_name"></result>
+		<result property="capacity" column="capacity"></result>
+	</resultMap>
+	
+	<select id="findOne" resultMap="BaseResultMap">
+		select
+			room_id,
+			room_name,
+			capacity
+		from
+			meeting_room
+		where
+			room_id = #{roomId,jdbcType=INTEGER}
+	</select>
+</mapper>
