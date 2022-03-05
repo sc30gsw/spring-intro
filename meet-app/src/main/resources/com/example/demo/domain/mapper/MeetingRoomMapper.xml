@@ -38,7 +38,7 @@
 			meeting_room
 	</select>
 	
-	<insert id="createMeetingRoom" parameterType="com.example.demo.domain.entity.MeetingRoomResult">
+	<insert id="createMeetingRoom">
 		insert
 			into meeting_room (
 				room_id,
@@ -51,4 +51,27 @@
 				#{capacity,jdbcType=INTEGER}
 			)
 	</insert>
+	
+	<select id="findByCriteria" parameterType="com.example.demo.domain.entity.MeetingRoomCriteria" resultMap="baseResultMap">
+		select
+			room_id,
+			room_name,
+			capacity
+		from
+			meeting_room
+		<where>
+			<if test="roomId != null and roomId != ''">
+				and room_id = #{roomId,jdbcType=INTEGER}
+			</if>
+			<if test="roomName != null and roomName != ''">
+				and room_name like #{roomName,jdbcType=VARCHAR} || '%'
+			</if>
+			<if test="capacity != null and capacity != ''">
+				and <![CDATA[
+					capacity >= #{capacity,jdbcType=INTEGER}
+					]]>
+			</if>
+		</where>
+		order by room_id
+	</select>
 </mapper>

@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.example.demo.domain.entity.MeetingRoom;
+import com.example.demo.domain.entity.MeetingRoomCriteria;
 
 @Mapper
 public interface MeetingRoomMapper {
@@ -16,4 +17,6 @@ public interface MeetingRoomMapper {
 	public List<MeetingRoom> findAll();
 	
 	public MeetingRoom createMeetingRoom(MeetingRoom meetingRoom);
+	
+	public List<MeetingRoom> findByCriteria(MeetingRoomCriteria criteria);
 }
