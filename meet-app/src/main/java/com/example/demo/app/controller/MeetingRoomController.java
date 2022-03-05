@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.domain.entity.MeetingRoom;
+import com.example.demo.domain.entity.MeetingRoomsBean;
 import com.example.demo.domain.service.MeetingRoomService;
 
 @RestController
@@ -22,5 +23,11 @@ public class MeetingRoomController {
 		MeetingRoom room = service.findRoomOne(roomId);
 		
 		return room;
+	}
+	
+	@GetMapping("/getRooms")
+	public MeetingRoomsBean getRooms() {
+		
+		return service.getAllRooms();
 	}
 }
