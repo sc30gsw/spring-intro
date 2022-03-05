@@ -14,4 +14,6 @@ public interface MeetingRoomMapper {
 	public long count();
 	
 	public List<MeetingRoom> findAll();
+	
+	public MeetingRoom createMeetingRoom(MeetingRoom meetingRoom);
 }

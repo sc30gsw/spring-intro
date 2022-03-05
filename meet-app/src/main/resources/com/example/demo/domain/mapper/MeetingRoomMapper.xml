@@ -37,4 +37,18 @@
 		from
 			meeting_room
 	</select>
+	
+	<insert id="createMeetingRoom" parameterType="com.example.demo.domain.entity.MeetingRoomResult">
+		insert
+			into meeting_room (
+				room_id,
+				room_name,
+				capacity
+				)
+			values (
+				#{roomId,jdbcType=INTEGER},
+				#{roomName,jdbcType=VARCHAR},
+				#{capacity,jdbcType=INTEGER}
+			)
+	</insert>
 </mapper>
