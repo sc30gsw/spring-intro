@@ -5,13 +5,13 @@
 <mapper namespace="com.example.demo.domain.mapper.MeetingRoomMapper">
 
 	<!-- マッピング定義(MeetingRoom) -->
-	<resultMap id="BaseResultMap" type="com.example.demo.domain.entity.MeetingRoom">
+	<resultMap id="baseResultMap" type="com.example.demo.domain.entity.MeetingRoom">
 		<id property="roomId" column="room_id"></id>
 		<result property="roomName" column="room_name"></result>
 		<result property="capacity" column="capacity"></result>
 	</resultMap>
 	
-	<select id="findOne" resultMap="BaseResultMap">
+	<select id="findOne" resultMap="baseResultMap">
 		select
 			room_id,
 			room_name,
@@ -20,5 +20,21 @@
 			meeting_room
 		where
 			room_id = #{roomId,jdbcType=INTEGER}
+	</select>
+	
+	<select id="count" resultType="java.lang.Long">
+		select
+			count(*)
+		from
+			meeting_room
+	</select>
+	
+	<select id="findAll" resultMap="baseResultMap">
+		select
+			room_id,
+			room_name,
+			capacity
+		from
+			meeting_room
 	</select>
 </mapper>
