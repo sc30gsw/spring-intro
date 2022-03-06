@@ -16,7 +16,7 @@ public interface MeetingRoomMapper {
 	
 	public List<MeetingRoom> findAll();
 	
-	public MeetingRoom createMeetingRoom(MeetingRoom meetingRoom);
+	public void createMeetingRoom(MeetingRoom meetingRoom);
 	
 	public List<MeetingRoom> findByCriteria(MeetingRoomCriteria criteria);
 }
