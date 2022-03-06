@@ -13,5 +13,4 @@ public class MeetingRoomsBean implements Serializable {
 	private List<MeetingRoom> meetingRooms;
 	
 	private long count;
-
 }
