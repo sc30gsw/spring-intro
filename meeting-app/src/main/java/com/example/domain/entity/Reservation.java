@@ -11,7 +11,7 @@ import lombok.Data;
  *
  */
 @Data
-public class reservation implements Serializable{
+public class Reservation implements Serializable{
 	
 	private static final long serialVersionUID = 3L;
 	
