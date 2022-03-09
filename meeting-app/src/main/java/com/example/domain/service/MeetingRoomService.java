@@ -37,4 +37,14 @@ public class MeetingRoomService {
 		
 		return rooms;
 	}
+	
+	/**
+	 * 会議室1件取得する
+	 * 
+	 * @param roomId 会議室ID
+	 * @return 会議室
+	 */
+	public MeetingRoom findMeetingRoom(Integer roomId) {
+		return repository.findOne(roomId);
+	}
 }

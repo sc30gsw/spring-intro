@@ -28,4 +28,14 @@ public class MeetingRoomRepository {
 		return mapper.findAllReservedRooms(reservedDate);
 	}
 
+	/**
+	 * 会議室を1件取得する
+	 * 
+	 * @param roomId 会議室ID
+	 * @return 会議室
+	 */
+	public MeetingRoom findOne(Integer roomId) {
+		return mapper.findOneMeetingRoom(roomId);
+	}
+
 }

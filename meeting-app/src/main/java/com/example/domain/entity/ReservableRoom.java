@@ -1,7 +1,7 @@
 package com.example.domain.entity;
 
 import java.io.Serializable;
-import java.sql.Date;
+import java.time.LocalDate;
 
 import lombok.Data;
 
@@ -18,9 +18,9 @@ public class ReservableRoom implements Serializable {
 	private long seqNo;
 	
 	/**予約日*/
-	private Date reservedDate;
+	private LocalDate reservedDate;
 	
 	/**会議室ID*/
-	private Integer reservableRoomId;
+	private Integer roomId;
 	
 }

@@ -1,4 +1,4 @@
-package com.example.domain.entity;
+package com.example.app.reservation;
 
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -7,13 +7,13 @@ import java.time.LocalTime;
 import lombok.Data;
 
 /**
- * 予約エンティティクラス
+ * 予約情報レスポンスクラス
  *
  */
 @Data
-public class Reservation implements Serializable{
-	
-	private static final long serialVersionUID = 3L;
+public class ReservationResult implements Serializable {
+
+	private static final long serialVersionUID = 4L;
 	
 	/**予約ID*/
 	private Integer reservationId;
@@ -32,5 +32,4 @@ public class Reservation implements Serializable{
 	
 	/**ユーザーID*/
 	private String userId;
-	
 }

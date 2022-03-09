@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+ <mapper namespace="com.example.domain.mapper.ReservationMapper">
+ 
+ 	<!-- マッピング定義(reservation) -->
+ 	<resultMap id="reservation" type="com.example.domain.entity.Reservation">
+ 		<id column="reservation_id" property="reservationId" jdbcType="INTEGER" />
+ 		<result column="start_time" property="startTime" jdbcType="TIME" />
+ 		<result column="end_time" property="endTime" jdbcType="TIME" />
+ 		<result column="reserved_date" property="reservedDate" jdbcType="DATE" />
+ 		<result column="user_id" property="userId" jdbcType="VARCHAR" />
+ 		<result column="room_id" property="roomId" jdbcType="INTEGER" />
+ 	</resultMap>
+ 	
+ 	<!-- 予約情報一覧を取得する -->
+ 	<select id="findByReservableRoom" resultMap="reservation">
+ 		select
+ 			reservation_id,
+ 			start_time,
+ 			end_time,
+ 			reserved_date
+ 		from
+ 			reservation
+ 		where
+ 			reserved_date = #{reservedDate,jdbcType=DATE}
+ 			and room_id = #{roomId,jdbcType=INTEGER}
+ 	</select>
+ 
+ 	<!-- 予約情報を登録する -->
+ 	<insert id="insertReservation">
+ 		insert
+    		into
+        		reservation (
+            		reservation_id,
+            		start_time,
+            		end_time,
+            		reserved_date,
+            		room_id,
+            		user_id
+ 				)
+    		values
+        		(
+            		#{reservationId,jdbcType=INTEGER},
+            		#{startTime,jdbcType=TIME},
+            		#{endTime,jdbcType=TIME},
+            		#{reservedDate,jdbcType=DATE},
+            		#{roomId,jdbcType=INTEGER},
+            		#{userId,jdbcType=VARCHAR}
+        		)
+ 	</insert>
+ 	
+ 	<!-- 予約情報を1件取得する -->
+ 	<select id="findByReservation" resultMap="reservation">
+ 		select
+ 			reservation_id,
+ 			start_time,
+ 			end_time,
+ 			reserved_date,
+ 			room_id,
+ 			user_id
+ 		from
+ 			reservation
+ 		where
+ 			reservation_id = #{reservationId,jdbcType=INTEGER}
+ 	</select>
+ 	
+ 	<!-- 予約情報を1件削除する -->
+ 	<delete id="deleteOneReservation">
+ 		delete
+    		from
+        		reservation
+    		where
+        		reservation_id = #{reservationId,jdbcType=INTEGER}
+ 	</delete>
+ </mapper>
