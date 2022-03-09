@@ -33,4 +33,7 @@ public class Reservation implements Serializable{
 	/**ユーザーID*/
 	private String userId;
 	
+	/**ユーザー*/
+	private Users user;
+	
 }

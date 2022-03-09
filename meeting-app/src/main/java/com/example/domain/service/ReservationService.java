@@ -90,17 +90,12 @@ public class ReservationService {
 	 */
 	public boolean overlap(Reservation result, ReservableRoom reservableRoom, LocalDate reservedDate, Integer roomId) {
 		List<Reservation> reservation = reservationRepository.getByReservableRooms(reservedDate, roomId);
-		// 2つの予約の日付・会議室が重複しているかどうかのチェック
-		// true:重複 / false:重複なし
-		if (!Objects.equals(reservableRoom.getRoomId(), result.getRoomId())
-				&& !Objects.equals(reservableRoom.getReservedDate(), result.getReservedDate())) {
-			return false;
-		}
 		// 2つの予約の開始時刻と終了時刻が重複するかどうかのチェック
 		// true:重複 / false:重複なし
+		boolean isDateOverlap = reservation.stream().anyMatch(reserve -> reserve.getReservedDate().equals(result.getReservedDate()));
 		boolean isTimeOverlap = reservation.stream().anyMatch(reserve -> reserve.getStartTime().equals(result.getStartTime()) 
 				&& reserve.getEndTime().equals(result.getEndTime()));
-		if (isTimeOverlap) {
+		if (isTimeOverlap && isDateOverlap) {
 			return true;
 		}
 		

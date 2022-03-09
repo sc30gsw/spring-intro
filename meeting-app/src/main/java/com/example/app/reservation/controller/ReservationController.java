@@ -107,18 +107,21 @@ public class ReservationController {
 	public String reserve(@Validated ReservationForm form, BindingResult result,
 			@DateTimeFormat(iso = DateTimeFormat.ISO.DATE) @PathVariable("date") LocalDate date,
 			@PathVariable("roomId") Integer roomId, Model model) {
-		
+		log.info("登録処理開始");		
 		// 入力チェックエラー
 		if (result.hasErrors()) {
-			return reserveForm(date, roomId, model);
+			log.info("入力失敗");
+			return "redirect:/reservations/{date}/{roomId}";
 		}
 		
 		try {
 			reservationService.regist(form, date, roomId);
 		} catch (UnavailableReservationException | AlreadyReservedException e) {
 			model.addAttribute("error", e.getMessage());
-			return reserveForm(date, roomId, model);
+			log.info(e.getMessage());
 		}
+		
+		log.info("登録完了");
 		
 		return "redirect:/reservations/{date}/{roomId}";
 

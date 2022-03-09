@@ -26,7 +26,7 @@
 				th:value="${time}"></option>
 		</select> <span th:if="${#fields.hasErrors('endTime')}" th:errors="*{endTime}"
 			style="color: red;">error!</span> <br />
-		<button type="submit">予約</button>
+		<input type="submit" value="予約">
 	</form>
 
 	<table>
@@ -37,12 +37,12 @@
 		</tr>
 		<tr th:each="reservation: ${reservations}">
 			<td><span th:text="${reservation.startTime}"></span> - <span
-				th:text="${reservation.endTime"></span></td>
-			<td><span th:text="${reservation.user.lastName}"></span> <span
-				th:text="${reservation.user.firstName"></span></td>
+				th:text="${reservation.endTime}"></span></td>
+			<td><span th:text="${user.lastName}"></span> <span
+				th:text="${user.firstName}"></span></td>
 			<td>
 				<form th:action="@{'/reservations/' + ${date} + '/' + ${roomId}}"
-					method="post" th:if="${user.userId == reservation.user.userId}">
+					method="post" th:if="${user.userId == reservation.userId}">
 					<input type="hidden" name="reservationId" th:value="${reservation.reservationId}">
 					<input type="submit" name="cancel" value="取消">
 				</form>
