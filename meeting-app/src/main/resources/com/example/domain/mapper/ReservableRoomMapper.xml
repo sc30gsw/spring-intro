@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+ <mapper namespace="com.example.domain.mapper.ReservableRoomMapper">
+ 	
+ 	<!-- マッパー定義(reservable_room) -->
+ 	<resultMap id="reservableRoom" type="com.example.domain.entity.ReservableRoom">
+ 		<id column="seq_no" property="seqNo" jdbcType="BIGINT" />
+ 		<result column="reserved_date" property="reservedDate" jdbcType="DATE" />
+ 		<result column="room_id" property="roomId" jdbcType="INTEGER" />
+ 	</resultMap>
+ 	
+ 	<!-- 会議室・予約を1件取得する -->
+ 	<select id="findOneReservableRoom" resultMap="reservableRoom">
+ 		select
+ 			reserved_date,
+ 			room_id
+ 		from
+ 			reservable_room
+ 		where
+ 			reserved_date = #{reservedDate,jdbcType=DATE}
+ 			and room_id = #{roomId,jdbcType=INTEGER}
+ 	</select>
+ </mapper>

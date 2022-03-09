@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+ <mapper namespace="com.example.domain.mapper.MeetingRoomMapper">
+ 	
+ 	<!-- マッピング定義(meeting_room) -->
+ 	<resultMap id="meetingRoom" type="com.example.domain.entity.MeetingRoom" extends="reservableRoom">
+ 		<id column="room_id" property="roomId" jdbcType="INTEGER" />
+ 		<result column="room_name" property="roomName" jdbcType="VARCHAR" />
+ 		<collection resultMap="reservableRoom" property="reservableRooms" columnPrefix="reservable_" />
+ 	</resultMap>
+ 
+ 	<!-- マッピング定義(reservable_room) -->
+ 	<resultMap id="reservableRoom" type="com.example.domain.entity.ReservableRoom">
+ 		<id column="seq_no" property="seqNo" jdbcType="BIGINT" />
+ 		<result column="reserved_date" property="reservedDate" jdbcType="DATE" />
+ 		<result column="room_id" property="roomId" jdbcType="INTEGER" />
+ 	</resultMap>
+ 	
+ 	<!-- 予約情報を持つ会議室全件取得 -->
+ 	<select id="findAllReservedRooms" resultMap="meetingRoom">
+ 		select
+ 			mr.room_id,
+ 			mr.room_name,
+ 			rr.reserved_date as reservable_reserved_date,
+ 			rr.room_id as reservable_room_id
+ 		from
+ 			meeting_room mr
+ 		inner join reservable_room rr
+ 			on mr.room_id = rr.room_id
+ 		<where>
+ 			<if test="reservable_reserved_date != null and reservable_reserved_date = ''">
+ 				rr.reserved_date = #{reservedDate,jdbcType=DATE}
+ 			</if>
+ 		</where>
+ 		order by
+ 			rr.room_id ASC
+ 	</select>
+ 	
+ 	<!-- 会議室1件取得する -->
+ 	<select id="findOneMeetingRoom" resultMap="meetingRoom">
+ 		select
+ 			room_id,
+ 			room_name
+ 		from
+ 			meeting_room
+ 		where
+ 			room_id = #{roomId,jdbcType=INTEGER}
+ 	</select>
+ </mapper>
